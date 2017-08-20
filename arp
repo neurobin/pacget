@@ -1,0 +1,16 @@
+#!/bin/bash
+
+version=1.0.0
+
+declare -a args
+declare -a cmds
+while [[ $# > 0 ]]
+do
+    case "$1" in
+        -s|--search)
+                args+=(-s "$2")
+                shift
+                ;;
+    esac
+    shift
+done
