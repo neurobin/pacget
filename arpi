@@ -1,0 +1,125 @@
+#!/bin/bash
+
+version=1.0.0
+pkgname=arpi
+
+depends="pacman pkgfile pacaur"
+
+help="
+#################################### $pkgname ######################################
+########################### Arch Package Installer #############################
+################################################################################
+
+All options works the same way as pacaur except the following:
+
+    -s, --search        : search in both arch repo and AUR
+    -s/x, --search/x    : Extensive search in arch repo and AUR
+
+
+All other options are forwarded to pacaur.
+
+################################################################################
+"
+
+msg_out(){
+	printf "*** $*\n" #> /dev/stdout
+}
+
+_star_s(){
+    if [ "$1" = '' ]; then
+        title='**********'
+    else
+        title=" ($1) "
+    fi
+    local s="************************$title*****************************"
+    printf "\n\n\n*** $s\n"
+}
+
+_star_e(){
+    local s='***************************************************************'
+    printf "*** $s\n"
+}
+
+err_out(){
+	printf "\nE: $*\n" >&2
+}
+
+wrn_out(){
+	printf "\nW: $*\n" >&2
+}
+
+err_exit(){
+	err_out "$*"
+	exit 1
+}
+
+empty_var_exit(){
+    # $1 -> msg
+    # $2 -> var
+    if [ "$2" = '' ]; then
+        err_exit "$1"
+    fi
+}
+
+chkroot(){
+	if [ "$(id -u)" != "0" ]; then
+	  err_out "root access required."
+	  exit 1
+	fi
+}
+
+chknorm(){
+	if [ "$(id -u)" = "0" ]; then
+	  wrn_out "Running as root not recommended. May produce some problems. Better run as a normal user."
+	  return 1
+	fi
+}
+
+chkcmd(){
+    if command -v "$1" >/dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+declare -a args
+declare -a cmds
+while [[ $# > 0 ]]
+do
+    case "$1" in
+        -s|--search)
+                empty_var_exit "Search term not specified" "$2"
+                args+=("$1" "$2")
+                cmds+=('pacman -S')
+                shift
+                ;;
+        -s/x|--search/x)
+                empty_var_exit "Search term not specified" "$2"
+                args+=("-s" "$2")
+                cmds+=(pkgfile)
+                shift
+                ;;
+        -h|--help)
+                args+=("$1")
+                msg_out "$help"
+                ;;
+        -v|--version)
+                args+=("$1")
+                msg_out "$pkgname version:       $version"
+                msg_out "pacaur version:    $(pacaur -v)"
+                msg_out "pacman version:    $(pacman --version)"
+                exit 1
+                ;;
+        *)
+                args+=("$1")
+                ;;
+    esac
+    shift
+done
+
+cmds+=(pacaur)
+
+for cmd in "${cmds[@]}"; do
+    $cmd "${args[@]}"
+done
