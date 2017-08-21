@@ -49,23 +49,19 @@ pac-get -s gimp
 ![pac-get example image](https://neurobin.org/img/pac-get-ex.png)
 
 
-# OPTIONS
+# PAC-GET OPTIONS
 
--s *search_term*
+**-s, --search** *search_term*
 : Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively.
 
--s/x *search_term*
-: Same as `-s` but includes `pkgfile` search. The package `pkgfile` must be installed.
+**-s/x, --search/x** *search_term*
+: Extended search. Same as `-s`, but includes `pkgfile` search. The package `pkgfile` must be installed.
 
+**-h, --help**
+: Show help for **pac-get** and **pacaur**
 
-# FULLY SPECIFIED NAMES FOR OPTIONS
-
-Short name | Full name
--------- | ---------
--s | --search
--s/x | --search/x
--h | --help
--v | --version
+**-v, --version**
+: Show version info for **pac-get**, **pacaur** and **pacman**
 
 # BUG REPORT
 

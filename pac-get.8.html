@@ -84,42 +84,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="https://neurobin.org/img/pac-get-ex.png" alt="pac-get example image" />
 <p class="caption">pac-get example image</p>
 </div>
-<h1 id="options">OPTIONS</h1>
+<h1 id="pac-get-options">PAC-GET OPTIONS</h1>
 <dl>
-<dt>-s <em>search_term</em></dt>
+<dt><strong>-s, --search</strong> <em>search_term</em></dt>
 <dd>Search for <em>search_term</em> in both official Archlinux repositories and AUR, then install packages selectively and interactively.
 </dd>
-<dt>-s/x <em>search_term</em></dt>
-<dd>Same as <code>-s</code> but includes <code>pkgfile</code> search. The package <code>pkgfile</code> must be installed.
+<dt><strong>-s/x, --search/x</strong> <em>search_term</em></dt>
+<dd>Extended search. Same as <code>-s</code>, but includes <code>pkgfile</code> search. The package <code>pkgfile</code> must be installed.
+</dd>
+<dt><strong>-h, --help</strong></dt>
+<dd>Show help for <strong>pac-get</strong> and <strong>pacaur</strong>
+</dd>
+<dt><strong>-v, --version</strong></dt>
+<dd>Show version info for <strong>pac-get</strong>, <strong>pacaur</strong> and <strong>pacman</strong>
 </dd>
 </dl>
-<h1 id="fully-specified-names-for-options">FULLY SPECIFIED NAMES FOR OPTIONS</h1>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Short name</th>
-<th align="left">Full name</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">-s</td>
-<td align="left">--search</td>
-</tr>
-<tr class="even">
-<td align="left">-s/x</td>
-<td align="left">--search/x</td>
-</tr>
-<tr class="odd">
-<td align="left">-h</td>
-<td align="left">--help</td>
-</tr>
-<tr class="even">
-<td align="left">-v</td>
-<td align="left">--version</td>
-</tr>
-</tbody>
-</table>
 <h1 id="bug-report">BUG REPORT</h1>
 <p><a href="https://github.com/neurobin/pac-get/issues" class="uri">https://github.com/neurobin/pac-get/issues</a></p>
 </body>
