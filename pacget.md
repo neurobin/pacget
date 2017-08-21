@@ -47,7 +47,7 @@ pacget -s gimp
 ![pacget example image](https://neurobin.org/img/pacget-ex.png)
 
 
-# PAC-GET OPTIONS
+# PACGET OPTIONS
 
 **-s, --search** *search_term*
 : Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively.
