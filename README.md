@@ -22,11 +22,8 @@ It depends on the following packages:
 
 # INSTALL
 
-Copy the `pac-get` script to */usr/bin/*
-
 ```bash
-chmod +x pac-get
-sudo cp pac-get /usr/bin/
+sudo make install
 ```
 
 # USAGE
