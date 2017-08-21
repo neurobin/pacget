@@ -2,7 +2,7 @@
 
 chkroot(){
 	if [ "$(id -u)" != "0" ]; then
-	  err_out "root access required."
+	  echo "root access required." >&2
 	  exit 1
 	fi
 }
