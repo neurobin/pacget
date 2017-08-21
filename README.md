@@ -5,13 +5,13 @@ pacget -- An Archlinux package manager (A wrapper over [pacaur](https://github.c
 
 **pacget** \[ operation ] \[ options ] \[ target(s) ]
 
-All options are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionality over **pacaur**.
+All arguments are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionalities over **pacaur**.
 
 # DESCRIPTION
 
 **pacget** works the same way as **pacaur** and consequently **pacman**. All basic operations are processed with **pacaur** which wraps around **pacman** and thus you can use the same knowledge of **pacman** and **pacaur**.
 
-**pacget** extends some options provided by pacaur, such as the search functionality. **pacget**'s `-s` option searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
+**pacget** extends some operations provided by pacaur, such as the search functionality. **pacget**'s `-s` operation searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
 
 # DEPENDENCIES
 
