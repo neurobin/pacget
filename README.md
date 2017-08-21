@@ -20,6 +20,22 @@ sudo cp arpi /usr/bin/
 
 # USAGE
 
-It can be used the same way as pacaur. The only difference is that some options come with extra functionalities. An example:
+It can be used the same way as `pacaur` (consequently `pacman`). The only difference is that some options come with extra functionalities.
+
+**Example:**
+
+```bash
+# The following installs the package linux-lts
+arpi -Sy linux-lts
+
+# Upgrade:
+arpi -Syu
+# etc.. same as pacman and pacaur.
+
+# The following command will search for gimp and
+# give you option to select packages to install
+arpi -s gimp 
+```
 
 ![arpi example image](arpi-ex.png)
+
