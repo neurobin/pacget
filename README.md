@@ -22,11 +22,11 @@ It depends on the following packages:
 
 # INSTALL
 
+Run the *install.sh* script:
+
 ```bash
-mkdir /tmp/pac-get && cd /tmp/pac-get
-wget https://raw.githubusercontent.com/neurobin/pkgbuilds/master/pac-get/PKGBUILD
-makepkg -i
-rm -rf /tmp/pac-get
+chmod +x install.sh
+./install.sh
 ```
 
 # USAGE
