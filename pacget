@@ -206,7 +206,7 @@ if $search; then
     if [[ "$search_results" != '' ]]; then
         msg="\n
 $bldylw==>$txtrst ${bldwht}Enter n° of packages to be installed$txtrst
-$bldylw==>$txtrst ${bldwht}(e.g., 1 2 3 or 1,2,3 or 1-3)$txtrst
+$bldylw==>$txtrst ${bldwht}(e.g., 1 2 3 or 1,2,3 or 1-3 or 3-1)$txtrst
 $bldylw==>$txtrst ${bldwht}------------------------------------$txtrst
 $bldylw==>$txtrst "
         msg=$(printf "$msg" | sed -r -e "s#.+#$bldwht&$end_color#")

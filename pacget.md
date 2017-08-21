@@ -55,7 +55,7 @@ pacget -s gimp
 # PACGET OPTIONS
 
 **-s, --search** *search_term*
-: Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively.
+: Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively. This produces output like **yaourt** and lets you select the packages by number (e.g 1,2,3 or 1 2 3) and range (1-3 or 3-1) to install them.
 
 **-sx, --searchx** *search_term*
 : Extended search. Same as `-s`, but includes `pkgfile` search. The package `pkgfile` must be installed.
