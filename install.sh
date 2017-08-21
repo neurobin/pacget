@@ -62,5 +62,5 @@ if ! chkcmd pacaur; then
 fi
 
 # Install pacget
-wget https://raw.githubusercontent.com/neurobin/pkgbuilds/master/pacget/PKGBUILD
+wget https://raw.githubusercontent.com/neurobin/pkgbuilds/release/pacget/PKGBUILD
 makepkg -i || err_exit "Failed to install pacget"
