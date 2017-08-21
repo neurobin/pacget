@@ -1,5 +1,5 @@
 % pacget(8) pacget user manual
-% Md Jahidul Hamid <https://github.com/neurobin>
+% Md. Jahidul Hamid <https://github.com/neurobin>
 % August 22, 2017
 
 # NAME
