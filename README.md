@@ -25,8 +25,10 @@ It depends on the following packages:
 Run the *install.sh* script:
 
 ```bash
-chmod +x install.sh
-./install.sh
+# download the installer
+wget https://raw.githubusercontent.com/neurobin/pacget/master/install.sh -O install.sh
+chmod +x install.sh # Give execute permission
+./install.sh        # Run the installer
 ```
 
 # USAGE
