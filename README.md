@@ -3,7 +3,7 @@ pac-get -- An Archlinux package manager (A wrapper over [pacaur](https://github.
 
 # SYNOPSIS
 
-**pac-get** <operation> [ options ] [ target(s) ]
+**pac-get** \[ operation ] \[ options ] \[ target(s) ]
 
 All options are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionality over **pacaur**.
 
@@ -31,7 +31,7 @@ chmod +x install.sh
 
 # USAGE
 
-It can be used the same way as `pacaur` (consequently `pacman`). The only difference is that some options come with extra functionalities.
+It can be used the same way as `pacaur` (consequently `pacman`). The only difference is that some options come with extra facilities.
 
 **Examples:**
 
