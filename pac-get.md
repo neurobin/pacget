@@ -5,10 +5,6 @@
 # NAME
 pac-get -- An Archlinux package manager (A wrapper over [pacaur](https://github.com/rmarquis/pacaur)).
 
-An Archlinux package manager (A wrapper over pacaur).
-
-It provides some extra facility over pacaur such as search in both arch repository and AUR and install them selectively (like yaourt).
-
 # SYNOPSIS
 
 **pac-get** <operation> [ options ] [ target(s) ]
