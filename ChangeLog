@@ -1,0 +1,7 @@
+Change Log for pac-get
+--------------------
+
+Version 1.0.1 - Mon Aug 21 15:07:48 UTC 2017
+--------------------------------------------
+
+* Improve handling the `-s` option.
