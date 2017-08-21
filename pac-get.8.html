@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Md Jahidul Hamid https://github.com/neurobin" />
+  <meta name="date" content="2017-08-21" />
+  <title>pac-get(8) pac-get user manual</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">pac-get(8) pac-get user manual</h1>
+<h2 class="author">Md Jahidul Hamid <a href="https://github.com/neurobin" class="uri">https://github.com/neurobin</a></h2>
+<h3 class="date">August 21, 2017</h3>
+</div>
+<h1 id="name">NAME</h1>
+<p><strong>pac-get</strong> -- An Archlinux package manager (A wrapper over <strong>pacaur</strong>).</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>pac-get</strong> [operation] [options] [target(s)]</p>
+<p>All options are forwarded to <strong>pacaur</strong> excluding some special ones which are processed separately to provide some extended functionality over <a href="https://github.com/rmarquis/pacaur">pacaur</a>.</p>
+<h1 id="description">DESCRIPTION</h1>
+<p><strong>pac-get</strong> works the same way as <strong>pacaur</strong> and consequently <strong>pacman</strong>. All basic operations are processed with <strong>pacaur</strong> which wraps around <strong>pacman</strong> and thus you can use the same knowledge of <strong>pacman</strong> and <strong>pacaur</strong>.</p>
+<p><strong>pac-get</strong> extends some options provided by pacaur, such as the search functionality. <strong>pac-get</strong>'s <code>-s</code> option searches both the official repo and AUR for the given search term.</p>
+<p>Also <strong>pac-get</strong>'s <code>-s</code> option allows installing packages interactively (kinda like <a href="https://github.com/archlinuxfr/yaourt">yaourt</a>).</p>
+<h1 id="dependencies">DEPENDENCIES</h1>
+<p>It depends on the following packages:</p>
+<ol style="list-style-type: decimal">
+<li>pacaur</li>
+<li>pkgfile (optional)</li>
+</ol>
+<h1 id="usage">USAGE</h1>
+<p>It can be used the same way as <code>pacaur</code> (consequently <code>pacman</code>). The only difference is that some options come with extra functionalities.</p>
+<p><strong>Examples:</strong></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># The following installs the package linux-lts</span>
+<span class="kw">pac-get</span> -Sy linux-lts
+
+<span class="co"># Upgrade:</span>
+<span class="kw">pac-get</span> -Syu
+<span class="co"># etc.. same as pacman and pacaur.</span>
+
+<span class="co"># The following command will search for gimp and</span>
+<span class="co"># give you option to select packages to install</span>
+<span class="kw">pac-get</span> -s gimp </code></pre></div>
+<div class="figure">
+<img src="https://neurobin.org/img/pac-get-ex.png" alt="pac-get example image" />
+<p class="caption">pac-get example image</p>
+</div>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt>-s <em>search_term</em></dt>
+<dd>Search for <em>search_term</em> in both official Archlinux repositories and AUR, then install packages selectively and interactively.
+</dd>
+<dt>-s/x <em>search_term</em></dt>
+<dd>Same as <code>-s</code> but includes <code>pkgfile</code> search. The package <code>pkgfile</code> must be installed.
+</dd>
+</dl>
+<h1 id="fully-specified-names-for-options">FULLY SPECIFIED NAMES FOR OPTIONS</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Short name</th>
+<th align="left">Full name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">-s</td>
+<td align="left">--search</td>
+</tr>
+<tr class="even">
+<td align="left">-s/x</td>
+<td align="left">--search/x</td>
+</tr>
+<tr class="odd">
+<td align="left">-h</td>
+<td align="left">--help</td>
+</tr>
+<tr class="even">
+<td align="left">-v</td>
+<td align="left">--version</td>
+</tr>
+</tbody>
+</table>
+<h1 id="bug-report">BUG REPORT</h1>
+<p><a href="https://github.com/neurobin/pac-get/issues" class="uri">https://github.com/neurobin/pac-get/issues</a></p>
+</body>
+</html>

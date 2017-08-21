@@ -3,13 +3,14 @@
 % August 21, 2017
 
 # NAME
-pac-get -- An Archlinux package manager (A wrapper over [pacaur](https://github.com/rmarquis/pacaur)).
+
+**pac-get** -- An Archlinux package manager (A wrapper over **pacaur**).
 
 # SYNOPSIS
 
-**pac-get** <operation> [ options ] [ target(s) ]
+**pac-get** \[operation] \[options] \[target(s)]
 
-All options are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionality over **pacaur**.
+All options are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionality over [pacaur](https://github.com/rmarquis/pacaur).
 
 # DESCRIPTION
 
@@ -45,7 +46,7 @@ pac-get -Syu
 pac-get -s gimp 
 ```
 
-![pac-get example image](pac-get-ex.png)
+![pac-get example image](https://neurobin.org/img/pac-get-ex.png)
 
 
 # OPTIONS
@@ -59,9 +60,7 @@ pac-get -s gimp
 
 # FULLY SPECIFIED NAMES FOR OPTIONS
 
-All of the shorthand option names have equivalent full names:
-
-Opt name | Full name
+Short name | Full name
 -------- | ---------
 -s | --search
 -s/x | --search/x
