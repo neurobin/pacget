@@ -17,7 +17,7 @@ clean(){
 chknorm
 
 tmpdir=$(mktemp -d)
-trap "clean '$tmpdir'" EXIT ABORT
+trap "clean '$tmpdir'" EXIT 2
 cd "$tmpdir"
 wget https://raw.githubusercontent.com/neurobin/pkgbuilds/master/pac-get/PKGBUILD
 makepkg -i
