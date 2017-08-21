@@ -21,8 +21,6 @@ repo_name_color=$bldpur
 end_color=$txtrst
 num_color=$bldylw
 
-depends="pacman pkgfile pacaur"
-
 help="
 #################################### $pkgname ######################################
 ########################### Arch Package Installer #############################
@@ -30,8 +28,9 @@ help="
 
 All options works the same way as pacaur except the following:
 
-    -s, --search        : search in both arch repo and AUR
-    -s/x, --search/x    : Extensive search in arch repo and AUR
+    -s, --search        : search in both arch repo and AUR and selective install
+    -s/x, --search/x    : Extensive search in arch repo and AUR and selective
+                          install
 
 
 All other options are forwarded to pacaur.
@@ -147,6 +146,7 @@ done
 raw_search_results=
 if $searchx; then
     search_results=$(
+    sudo pkgfile -u
     pkgfile "$search_term"
     pacaur -s "$search_term"
     pacman -Ss "$search_term"
@@ -175,28 +175,30 @@ if $search || $searchx; then
 
     printf "$search_results"
 
-    msg="\n\n>>> Enter the sequence of packages to be installed.\nSeparate by comma (1,2,3) or provide by range (e.g 1-5): "
-    msg=$(printf "$msg\n" | sed -r -e "s#.+#$bldwht&$end_color#")
-    printf "$msg"
-    read inp
-    declare -a arr
-    packs=
-    arr=($(echo "$inp" |tr ',' '\n'))
+    if [[ "$search_results" != '' ]]; then
+        msg="\n\n>>> Enter the sequence of packages to be installed.\nSeparate by comma (e.g 1,2,3) or provide by range (e.g 1-5): "
+        msg=$(printf "$msg\n" | sed -r -e "s#.+#$bldwht&$end_color#")
+        printf "$msg"
+        read inp
+        declare -a arr
+        packs=
+        arr=($(echo "$inp" |tr ',' '\n'))
 
-    for p in "${arr[@]}"; do
-        if [[ "$p" =~ ^[0-9]+$ ]]; then
-            #echo "$p"
-            packs+=" $(echo "$raw_indexed_search_results" | sed -r -n -e "s#^$p[[:blank:]]+[^/]+/([^[:blank:]]+).*#\1#p")"
-        elif [[ "$p" =~ ^([0-9]+)[[:blank:]]*-[[:blank:]]*([0-9]+) ]]; then
-            for i in $(seq ${BASH_REMATCH[1]} ${BASH_REMATCH[2]}); do
-                packs+=" $(echo "$raw_indexed_search_results" | sed -r -n -e "s#^$i[[:blank:]]+[^/]+/([^[:blank:]]+).*#\1#p")"
-            done
-        else
-            err_exit "Invalid range or sequence: $p"
-        fi
-    done
+        for p in "${arr[@]}"; do
+            if [[ "$p" =~ ^[0-9]+$ ]]; then
+                #echo "$p"
+                packs+=" $(echo "$raw_indexed_search_results" | sed -r -n -e "s#^$p[[:blank:]]+[^/]+/([^[:blank:]]+).*#\1#p")"
+            elif [[ "$p" =~ ^([0-9]+)[[:blank:]]*-[[:blank:]]*([0-9]+) ]]; then
+                for i in $(seq ${BASH_REMATCH[1]} ${BASH_REMATCH[2]}); do
+                    packs+=" $(echo "$raw_indexed_search_results" | sed -r -n -e "s#^$i[[:blank:]]+[^/]+/([^[:blank:]]+).*#\1#p")"
+                done
+            else
+                err_exit "Invalid range or sequence: $p"
+            fi
+        done
 
-    pacaur -Sy $packs
+        pacaur -Sy $packs
+    fi
 else
     pacaur "${args[@]}"
 fi
