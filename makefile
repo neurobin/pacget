@@ -1,5 +1,5 @@
 
 install:
 	chmod +x pac-get
-	cp pac-get $(DESTDIR)/usr/bin/
-	cp pac-get.8 $(DESTDIR)/usr/share/man/man8/
+	install -m 755 pac-get $(DESTDIR)/usr/bin/
+	install -m 644 pac-get.8 $(DESTDIR)/usr/share/man/man8/
