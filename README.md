@@ -50,4 +50,4 @@ pac-get -Syu
 pac-get -s gimp 
 ```
 
-![pac-get example image](pac-get-ex.png)
+![pac-get example image](https://neurobin.org/img/pac-get-ex.png)
