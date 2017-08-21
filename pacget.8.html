@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Md Jahidul Hamid https://github.com/neurobin" />
-  <meta name="date" content="2017-08-21" />
+  <meta name="date" content="2017-08-22" />
   <title>pacget(8) pacget user manual</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -50,12 +50,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">pacget(8) pacget user manual</h1>
 <h2 class="author">Md Jahidul Hamid <a href="https://github.com/neurobin" class="uri">https://github.com/neurobin</a></h2>
-<h3 class="date">August 21, 2017</h3>
+<h3 class="date">August 22, 2017</h3>
 </div>
 <h1 id="name">NAME</h1>
 <p><strong>pacget</strong> -- An Archlinux package manager (A wrapper over <strong>pacaur</strong>).</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>pacget</strong> [operation] [options] [target(s)]</p>
+<p><strong>pacget</strong> [packages_to_install]</p>
 <p>All arguments are forwarded to <strong>pacaur</strong> excluding some special ones which are processed separately to provide some extended functionalities over <a href="https://github.com/rmarquis/pacaur">pacaur</a>.</p>
 <h1 id="description">DESCRIPTION</h1>
 <p><strong>pacget</strong> works the same way as <strong>pacaur</strong> and consequently <strong>pacman</strong>. All basic operations are processed with <strong>pacaur</strong> which wraps around <strong>pacman</strong> and thus you can use the same knowledge of <strong>pacman</strong> and <strong>pacaur</strong>.</p>
@@ -71,6 +72,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>Examples:</strong></p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># The following installs the package linux-lts</span>
 <span class="kw">pacget</span> -Sy linux-lts
+
+<span class="co"># The following is a short form to pacget -S linux-lts</span>
+<span class="kw">pacget</span> linux-lts
 
 <span class="co"># Upgrade:</span>
 <span class="kw">pacget</span> -Syu

@@ -34,7 +34,7 @@
 #     POSSIBILITY OF SUCH DAMAGE.
 # ##############################################################################
 
-version=1.0.1
+version=1.0.2
 pkgname=pacget
 
 
@@ -59,6 +59,10 @@ help="
 #################################### $pkgname ####################################
 ########################## An Archlinux package manager ########################
 ################################################################################
+
+Usage:
+    $pkgname [operation] [options] [target/s]       #1
+    $pkgname [packages_to_install]                  #2
 
 All options works the same way as pacaur except the following:
 
@@ -232,5 +236,17 @@ if $search; then
         fi
     fi
 else
-    pacaur "${args[@]}"
+    # see if any options are passed
+    for p in "${args[@]}"; do
+        if [[ "$p" =~ ^-(.*)$ ]]; then
+            option_passed=set
+            break
+        fi
+    done
+    if [[ "$option_passed" = set ]]; then
+        pacaur "${args[@]}"
+    else
+        # If no option is passed, all will be taken as package names
+        pacaur -S "${args[@]}"
+    fi
 fi

@@ -1,17 +1,20 @@
 # NAME
-pacget -- An Archlinux package manager (A wrapper over [pacaur](https://github.com/rmarquis/pacaur)).
+
+**pacget** -- An Archlinux package manager (A wrapper over **pacaur**).
 
 # SYNOPSIS
 
-**pacget** \[ operation ] \[ options ] \[ target(s) ]
+**pacget** \[operation] \[options] \[target(s)]
 
-All arguments are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionalities over **pacaur**.
+**pacget** \[packages_to_install]
+
+All arguments are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionalities over [pacaur](https://github.com/rmarquis/pacaur).
 
 # DESCRIPTION
 
 **pacget** works the same way as **pacaur** and consequently **pacman**. All basic operations are processed with **pacaur** which wraps around **pacman** and thus you can use the same knowledge of **pacman** and **pacaur**.
 
-**pacget** extends some operations provided by pacaur, such as the search functionality. **pacget**'s `-s` operation searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
+**pacget** extends some operations provided by pacaur, such as the search functionality. **pacget**'s `-s` operations searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
 
 # DEPENDENCIES
 
@@ -41,6 +44,9 @@ It can be used the same way as `pacaur` (consequently `pacman`). The only differ
 # The following installs the package linux-lts
 pacget -Sy linux-lts
 
+# The following is a short form to pacget -S linux-lts
+pacget linux-lts
+
 # Upgrade:
 pacget -Syu
 # etc.. same as pacman and pacaur.
@@ -51,3 +57,4 @@ pacget -s gimp
 ```
 
 ![pacget example image](https://neurobin.org/img/pacget-ex.png)
+

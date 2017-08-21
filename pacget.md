@@ -1,6 +1,6 @@
 % pacget(8) pacget user manual
 % Md Jahidul Hamid <https://github.com/neurobin>
-% August 21, 2017
+% August 22, 2017
 
 # NAME
 
@@ -9,6 +9,8 @@
 # SYNOPSIS
 
 **pacget** \[operation] \[options] \[target(s)]
+
+**pacget** \[packages_to_install]
 
 All arguments are forwarded to **pacaur** excluding some special ones which are processed separately to provide some extended functionalities over [pacaur](https://github.com/rmarquis/pacaur).
 
@@ -34,6 +36,9 @@ It can be used the same way as `pacaur` (consequently `pacman`). The only differ
 ```bash
 # The following installs the package linux-lts
 pacget -Sy linux-lts
+
+# The following is a short form to pacget -S linux-lts
+pacget linux-lts
 
 # Upgrade:
 pacget -Syu
