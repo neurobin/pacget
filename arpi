@@ -3,6 +3,24 @@
 version=1.0.0
 pkgname=arpi
 
+
+
+txtrst='\\e[0m'    # Text Reset
+bldcyn='\\e[1;36m' # Cyan
+bldgrn='\\e[1;32m' # Green
+bldblu='\\e[1;34m' # Blue
+bldwht='\\e[1;37m' # White
+bldpur='\\e[1;35m' # Purple
+bldylw='\\e[1;33m' # Yellow
+
+third_bracket_color=$bldcyn
+good_version_color=$bldgrn
+bracket_text=$bldblu
+package_name_color=$bldwht
+repo_name_color=$bldpur
+end_color=$txtrst
+num_color=$bldylw
+
 depends="pacman pkgfile pacaur"
 
 help="
@@ -83,21 +101,28 @@ chkcmd(){
     fi
 }
 
+
 declare -a args
 declare -a cmds
-while [[ $# > 0 ]]
+
+search=false
+search_term=
+searchx=false
+while [ $# -gt 0 ]
 do
     case "$1" in
         -s|--search)
                 empty_var_exit "Search term not specified" "$2"
                 args+=("$1" "$2")
-                cmds+=('pacman -S')
+                search_term=$2
+                search=true
                 shift
                 ;;
         -s/x|--search/x)
                 empty_var_exit "Search term not specified" "$2"
                 args+=("-s" "$2")
-                cmds+=(pkgfile)
+                search_term=$2
+                searchx=true
                 shift
                 ;;
         -h|--help)
@@ -118,8 +143,60 @@ do
     shift
 done
 
-cmds+=(pacaur)
 
-for cmd in "${cmds[@]}"; do
-    $cmd "${args[@]}"
-done
+raw_search_results=
+if $searchx; then
+    search_results=$(
+    pkgfile "$search_term"
+    pacaur -s "$search_term"
+    pacman -Ss "$search_term"
+    )
+elif $search; then
+    search_results=$(
+    pacaur -s "$search_term"
+    pacman -Ss "$search_term"
+    )
+fi
+
+if $search || $searchx; then
+    raw_indexed_search_results=$(echo "$search_results" | awk 'BEGIN {a=0} /^[a-zA-Z]+\// {a++; print "\n" a,$0; next;} {print $0;}')
+    #echo "$raw_indexed_search_results"
+
+    search_results=$(
+        echo "$raw_indexed_search_results" |
+        sed -r \
+            -e "s#^([0-9]+[[:blank:]]+[^[:blank:]/]+/[^[:blank:]]+[*[:blank:]]*[^][]*)(\[[^][]+\])#\1$third_bracket_color\2$end_color #" \
+            -e "s#^([0-9]+[[:blank:]]+[^[:blank:]/]+/[^[:blank:]]+[*[:blank:]]*[^()]*)(\([^()]+\))#\1$bracket_text\2$end_color #" \
+            -e "s#^([0-9]+[[:blank:]]+[^[:blank:]/]+/[^[:blank:]]+[*[:blank:]]*)([^[:blank:]]+)#\1$good_version_color\2$end_color #" \
+            -e "s#^([0-9]+[[:blank:]]+[^[:blank:]/]+/)([^[:blank:]]+)[*[:blank:]]*#\1$package_name_color\2$end_color #" \
+            -e "s#^([0-9]+[[:blank:]]+)([^[:blank:]/]+)/#\1$repo_name_color\2$end_color/#" \
+            -e "s#^([0-9]+)[[:blank:]]+#$num_color\1$end_color #" \
+        )
+
+    printf "$search_results"
+
+    msg="\n\n>>> Enter the sequence of packages to be installed.\nSeparate by comma (1,2,3) or provide by range (e.g 1-5): "
+    msg=$(printf "$msg\n" | sed -r -e "s#.+#$bldwht&$end_color#")
+    printf "$msg"
+    read inp
+    declare -a arr
+    packs=
+    arr=($(echo "$inp" |tr ',' '\n'))
+
+    for p in "${arr[@]}"; do
+        if [[ "$p" =~ ^[0-9]+$ ]]; then
+            #echo "$p"
+            packs+=" $(echo "$raw_indexed_search_results" | sed -r -n -e "s#^$p[[:blank:]]+[^/]+/([^[:blank:]]+).*#\1#p")"
+        elif [[ "$p" =~ ^([0-9]+)[[:blank:]]*-[[:blank:]]*([0-9]+) ]]; then
+            for i in $(seq ${BASH_REMATCH[1]} ${BASH_REMATCH[2]}); do
+                packs+=" $(echo "$raw_indexed_search_results" | sed -r -n -e "s#^$i[[:blank:]]+[^/]+/([^[:blank:]]+).*#\1#p")"
+            done
+        else
+            err_exit "Invalid range or sequence: $p"
+        fi
+    done
+
+    pacaur -Sy $packs
+else
+    pacaur "${args[@]}"
+fi
