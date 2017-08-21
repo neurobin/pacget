@@ -27,7 +27,7 @@ It depends on the following packages:
 
 # USAGE
 
-It can be used the same way as `pacaur` (consequently `pacman`). The only difference is that some options come with extra functionalities.
+It can be used the same way as `pacaur` (consequently `pacman`). The only difference is that some options come with extra facilities.
 
 **Examples:**
 
@@ -52,7 +52,7 @@ pac-get -s gimp
 **-s, --search** *search_term*
 : Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively.
 
-**-s/x, --search/x** *search_term*
+**-sx, --searchx** *search_term*
 : Extended search. Same as `-s`, but includes `pkgfile` search. The package `pkgfile` must be installed.
 
 **-h, --help**
