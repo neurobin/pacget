@@ -51,24 +51,3 @@ pac-get -s gimp
 ```
 
 ![pac-get example image](pac-get-ex.png)
-
-
-# OPTIONS
-
--s *search_term*
-: Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively.
-
--s/x *search_term*
-: Same as `-s` but includes `pkgfile` search. The package `pkgfile` must be installed.
-
-
-# FULLY SPECIFIED NAMES FOR OPTIONS
-
-All of the shorthand option names have equivalent full names:
-
-Opt name | Full name
--------- | ---------
--s | --search
--s/x | --search/x
--h | --help
--v | --version
