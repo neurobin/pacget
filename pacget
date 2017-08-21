@@ -159,9 +159,9 @@ do
         printf "%s\n" "$help"
     elif [[ "$i" = -v ]] || [[ "$i" = --version ]]; then
         args+=("$i")
-        msg_out "pacget     version: $version"
-        msg_out "pacaur     version: $(pacaur -v)"
-        msg_out "pacman     version: $(pacman --version)"
+        msg_out "pacget version: $version"
+        msg_out "pacaur version: $(pacaur -v)"
+        msg_out "pacman version: $(pacman --version)"
         exit 1
     else
         args+=("$i")
