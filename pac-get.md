@@ -16,9 +16,7 @@ All options are forwarded to **pacaur** excluding some special ones which are pr
 
 **pac-get** works the same way as **pacaur** and consequently **pacman**. All basic operations are processed with **pacaur** which wraps around **pacman** and thus you can use the same knowledge of **pacman** and **pacaur**.
 
-**pac-get** extends some options provided by pacaur, such as the search functionality. **pac-get**'s `-s` option searches both the official repo and AUR for the given search term.
-
-Also **pac-get**'s `-s` option allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
+**pac-get** extends some options provided by pacaur, such as the search functionality. **pac-get**'s `-s` option searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
 
 # DEPENDENCIES
 
