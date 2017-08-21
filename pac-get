@@ -1,6 +1,6 @@
 #!/bin/bash
 # ##############################################################################
-# ################################ arpi ########################################
+# ################################ pac-get #####################################
 # ##############################################################################
 #            Copyright (c) 2017 Md. Jahidul Hamid
 # 
@@ -35,7 +35,7 @@
 # ##############################################################################
 
 version=1.0.0
-pkgname=arpi
+pkgname=pac-get
 
 
 
@@ -56,8 +56,8 @@ end_color=$txtrst
 num_color=$bldylw
 
 help="
-#################################### $pkgname ######################################
-########################### Arch Package Installer #############################
+#################################### $pkgname ###################################
+########################### Arch package manager ###############################
 ################################################################################
 
 All options works the same way as pacaur except the following:
@@ -164,8 +164,8 @@ do
         -v|--version)
                 args+=("$1")
                 msg_out "$pkgname version:       $version"
-                msg_out "pacaur version:    $(pacaur -v)"
-                msg_out "pacman version:    $(pacman --version)"
+                msg_out "pacaur  version:    $(pacaur -v)"
+                msg_out "pacman  version:    $(pacman --version)"
                 exit 1
                 ;;
         *)
@@ -236,8 +236,9 @@ if $search || $searchx; then
                 err_exit "Invalid range or sequence: $p"
             fi
         done
-
-        pacaur -Sy $packs
+        if [[ "$packs" != '' ]]; then
+            pacaur -Sy $packs
+        fi
     fi
 else
     pacaur "${args[@]}"
