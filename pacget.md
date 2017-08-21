@@ -4,7 +4,7 @@
 
 # NAME
 
-**pacget** -- An Archlinux package manager (A wrapper over **pacaur**).
+**pacget** -- A wrapper around **pacaur** to mimic yaourt's search feature.
 
 # SYNOPSIS
 
