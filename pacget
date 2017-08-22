@@ -197,11 +197,11 @@ search_results=
 if $search; then
     search_results=$(pacman -Ss "$search_term")
     if [[ "$pacman_S" != set ]]; then
-        search_results="$(pacaur -s "$search_term")$search_results"
+        search_results="$(pacaur -s "$search_term")"$'\n'"$search_results"
     fi
     if $searchx; then
         sudo pkgfile -u
-        search_results="$(pkgfile "$search_term")$search_results"
+        search_results="$(pkgfile "$search_term")"$'\n'"$search_results"
     fi
 fi
 
