@@ -25,7 +25,7 @@ around \f[B]pacman\f[] and thus you can use the same knowledge of
 .PP
 \f[B]pacget\f[] extends some operations provided by pacaur, such as the
 search functionality.
-\f[B]pacget\f[]\[aq]s \f[C]\-s\f[] operations searches both the official
+\f[B]pacget\f[]\[aq]s \f[C]\-s\f[] operation searches both the official
 repo and AUR for the given search term and allows installing packages
 interactively (kinda like
 yaourt (https://github.com/archlinuxfr/yaourt)).
@@ -46,37 +46,57 @@ The only difference is that some options come with extra facilities.
 .IP
 .nf
 \f[C]
+#\ Upgrade
+pacget\ \-Syu
+
 #\ The\ following\ installs\ the\ package\ linux\-lts
-pacget\ \-Sy\ linux\-lts
+pacget\ \-S\ linux\-lts
 
 #\ The\ following\ is\ a\ short\ form\ to\ pacget\ \-S\ linux\-lts
 pacget\ linux\-lts
 
-#\ Upgrade:
-pacget\ \-Syu
-#\ etc..\ same\ as\ pacman\ and\ pacaur.
 
 #\ The\ following\ command\ will\ search\ for\ gimp\ and
 #\ give\ you\ option\ to\ select\ packages\ to\ install
-pacget\ \-s\ gimp\ 
+pacget\ \-s\ gimp
+
+#\ The\ following\ will\ search\ only\ arch\ official\ repo
+#\ and\ give\ you\ option\ to\ select\ packages\ to\ install
+pacget\ \-Ss\ gimp
 \f[]
 .fi
 .PP
 [IMAGE: pacget example image (https://neurobin.org/img/pacget-ex.png)]
-.SH PACGET OPTIONS
+.SH SPECIALISED OPTIONS
 .TP
 .B \f[B]\-s, \-\-search\f[] \f[I]search_term\f[]
 Search for \f[I]search_term\f[] in both official Archlinux repositories
 and AUR, then install packages selectively and interactively.
-This produces output like \f[B]yaourt\f[] and lets you select the
-packages by number (e.g 1,2,3 or 1 2 3) and range (1\-3 or 3\-1) to
-install them.
+This produces output like \f[B]yaourt\f[] with indexed package list and
+lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and
+index range (1\-3 or 3\-1) to install them.
 .RS
 .RE
 .TP
 .B \f[B]\-sx, \-\-searchx\f[] \f[I]search_term\f[]
 Extended search.
 Same as \f[C]\-s\f[], but includes \f[C]pkgfile\f[] search.
+The package \f[C]pkgfile\f[] must be installed.
+.RS
+.RE
+.TP
+.B \f[B]\-Ss, \-S \-\-search\f[] \f[I]search_term\f[]
+Search for \f[I]search_term\f[] in official archlinux repositories only
+and allow installing packages selectively.
+This produces output like \f[B]yaourt\f[] with indexed package list and
+lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and
+index range (1\-3 or 3\-1) to install them.
+.RS
+.RE
+.TP
+.B \f[B]\-Ssx, \-S \-\-searchx\f[] \f[I]search_term\f[]
+Extended search on official archlinux repositories only.
+Same as \f[C]\-Ss\f[], but includes \f[C]pkgfile\f[] search.
 The package \f[C]pkgfile\f[] must be installed.
 .RS
 .RE

@@ -18,7 +18,7 @@ All arguments are forwarded to **pacaur** excluding some special ones which are 
 
 **pacget** works the same way as **pacaur** and consequently **pacman**. All basic operations are processed with **pacaur** which wraps around **pacman** and thus you can use the same knowledge of **pacman** and **pacaur**.
 
-**pacget** extends some operations provided by pacaur, such as the search functionality. **pacget**'s `-s` operations searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
+**pacget** extends some operations provided by pacaur, such as the search functionality. **pacget**'s `-s` operation searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
 
 # DEPENDENCIES
 
@@ -34,31 +34,41 @@ It can be used the same way as `pacaur` (consequently `pacman`). The only differ
 **Examples:**
 
 ```bash
+# Upgrade
+pacget -Syu
+
 # The following installs the package linux-lts
-pacget -Sy linux-lts
+pacget -S linux-lts
 
 # The following is a short form to pacget -S linux-lts
 pacget linux-lts
 
-# Upgrade:
-pacget -Syu
-# etc.. same as pacman and pacaur.
 
 # The following command will search for gimp and
 # give you option to select packages to install
-pacget -s gimp 
+pacget -s gimp
+
+# The following will search only arch official repo
+# and give you option to select packages to install
+pacget -Ss gimp
 ```
 
 ![pacget example image](https://neurobin.org/img/pacget-ex.png)
 
 
-# PACGET OPTIONS
+# SPECIALISED OPTIONS
 
 **-s, --search** *search_term*
-: Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively. This produces output like **yaourt** and lets you select the packages by number (e.g 1,2,3 or 1 2 3) and range (1-3 or 3-1) to install them.
+: Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 
 **-sx, --searchx** *search_term*
 : Extended search. Same as `-s`, but includes `pkgfile` search. The package `pkgfile` must be installed.
+
+**-Ss, -S --search** *search_term*
+: Search for *search_term* in official archlinux repositories only and allow installing packages selectively. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
+
+**-Ssx, -S --searchx** *search_term*
+: Extended search on official archlinux repositories only. Same as `-Ss`, but includes `pkgfile` search. The package `pkgfile` must be installed.
 
 **-h, --help**
 : Show help for **pacget** and **pacaur**

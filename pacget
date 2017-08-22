@@ -34,7 +34,7 @@
 #     POSSIBILITY OF SUCH DAMAGE.
 # ##############################################################################
 
-version=1.0.3
+version=1.0.4
 pkgname=pacget
 
 
@@ -57,7 +57,7 @@ num_color=$bldylw
 
 help="
 #################################### $pkgname ####################################
-############################ A wrapper around pacaur #########@@@@@#############
+############################ A wrapper around pacaur ###########################
 ################################################################################
 
 Usage:
@@ -66,8 +66,10 @@ Usage:
 
 All options works the same way as pacaur except the following:
 
-    -s, --search        : search in both arch repo and AUR and selective install
-    -sx, --searchx      : Same as -s with extensive search.
+  -s, --search        : Search in both arch repo and AUR and interactive install
+  -sx, --searchx      : Same as -s with extensive search.
+  -Ss, -S --search    : Search only arch repo and and interactive install
+  -Ssx, -S --searchx  : Same as -Ss with extensive search.
 
 
 All other options are forwarded to pacaur.
@@ -147,18 +149,7 @@ while [ $# -gt 0 ]
 do
     i=$1
     j=$2
-    if [[ "$i" =~ ^-(-)?(.*)s(.*)$ ]] || [[ "$i" =~ ^-(-)?search$ ]]; then
-        empty_var_exit "Search term not specified" "$j"
-        search_term=$2
-        search=true
-        if [[ "$i" =~ ^-(-)?(.*)x(.*)$ ]] || [[ "$i" =~ ^-(-)?searchx$ ]]; then
-            args+=("$(echo "$i" |sed -n -r -e 's/(.*s.*)x(.*)/\1\2/p')" "$j")
-            searchx=true
-        else
-            args+=("$i" "$j")
-        fi
-        shift
-    elif [[ "$i" = -h ]] || [[ "$i" = --help ]]; then
+    if [[ "$i" = -h ]] || [[ "$i" = --help ]]; then
         args+=("$i")
         printf "%s\n" "$help"
     elif [[ "$i" = -v ]] || [[ "$i" = --version ]]; then
@@ -167,6 +158,35 @@ do
         msg_out "pacaur version: $(pacaur -v)"
         msg_out "pacman version: $(pacman --version)"
         exit 1
+    elif [[ "$i" = -s ]] || [[ "$i" = --search ]]; then
+        empty_var_exit "Search term not specified" "$j"
+        search_term=$2
+        search=true
+        args+=("$i" "$j")
+        shift
+    elif [[ "$i" = -sx ]] || [[ "$i" = --searchx ]]; then
+        empty_var_exit "Search term not specified" "$j"
+        search_term=$2
+        search=true
+        searchx=true
+        args+=("-s" "$j")
+        shift
+    elif [[ "$i" =~ ^-Ssx(.*)$ ]]; then
+        empty_var_exit "Search term not specified" "$j"
+        search_term=$2
+        search=true
+        searchx=true
+        pacman_S=set
+        args+=("$i")
+    elif [[ "$i" =~ ^-Ss(.*)$ ]]; then
+        empty_var_exit "Search term not specified" "$j"
+        search_term=$2
+        search=true
+        pacman_S=set
+        args+=("$i")
+    elif [[ "$i" =~ ^-(.*)S(.*)$ ]]; then
+        pacman_S=set
+        args+=("$i")
     else
         args+=("$i")
     fi
@@ -175,14 +195,13 @@ done
 
 search_results=
 if $search; then
-    search_results=$(
-    pacaur -s "$search_term"
-    pacman -Ss "$search_term"
-    )
+    search_results=$(pacman -Ss "$search_term")
+    if [[ "$pacman_S" != set ]]; then
+        search_results="$(pacaur -s "$search_term")$search_results"
+    fi
     if $searchx; then
         sudo pkgfile -u
-        tmpres=$(pkgfile "$search_term")
-        search_results="$tmpres$search_results"
+        search_results="$(pkgfile "$search_term")$search_results"
     fi
 fi
 
@@ -236,7 +255,7 @@ $bldylw==>$txtrst "
             fi
         done
         if [[ "$packs" != '' ]]; then
-            pacaur -Sy $packs
+            pacaur -S $packs
         fi
     fi
 else

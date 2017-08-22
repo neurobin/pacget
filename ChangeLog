@@ -1,6 +1,14 @@
 Change Log for pacget
 --------------------
 
+
+Version 1.0.4 - Tue Aug 22 01:16:36 UTC 2017
+--------------------------------------------
+
+* Stop doing `-Sy`
+* Add possibility to search only official repository
+
+
 Version 1.0.1 - Mon Aug 21 15:07:48 UTC 2017
 --------------------------------------------
 
