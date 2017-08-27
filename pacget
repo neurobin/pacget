@@ -34,7 +34,7 @@
 #     POSSIBILITY OF SUCH DAMAGE.
 # ##############################################################################
 
-version=1.0.4
+version=1.0.5
 pkgname=pacget
 
 
@@ -66,10 +66,9 @@ Usage:
 
 All options works the same way as pacaur except the following:
 
-  -s, --search        : Search in both arch repo and AUR and interactive install
-  -sx, --searchx      : Same as -s with extensive search.
-  -Ss, -S --search    : Search only arch repo and and interactive install
-  -Ssx, -S --searchx  : Same as -Ss with extensive search.
+  -s, --search <sterm>    : Search arch repo and AUR and interactive install
+  -Ss, -S --search <sterm>: Search only arch repo and interactive install
+  -Fs, -F --search <file> : Search for containing file and interactive install
 
 
 All other options are forwarded to pacaur.
@@ -144,7 +143,6 @@ declare -a args
 
 search=false
 search_term=
-searchx=false
 while [ $# -gt 0 ]
 do
     i=$1
@@ -164,28 +162,23 @@ do
         search=true
         args+=("$i" "$j")
         shift
-    elif [[ "$i" = -sx ]] || [[ "$i" = --searchx ]]; then
+    elif [[ "$i" =~ ^-S(.*)s(.*)$ ]]; then
         empty_var_exit "Search term not specified" "$j"
-        search_term=$2
-        search=true
-        searchx=true
-        args+=("-s" "$j")
-        shift
-    elif [[ "$i" =~ ^-Ssx(.*)$ ]]; then
-        empty_var_exit "Search term not specified" "$j"
-        search_term=$2
-        search=true
-        searchx=true
-        pacman_S=set
-        args+=("$i")
-    elif [[ "$i" =~ ^-Ss(.*)$ ]]; then
-        empty_var_exit "Search term not specified" "$j"
-        search_term=$2
+        search_term=$j
         search=true
         pacman_S=set
         args+=("$i")
     elif [[ "$i" =~ ^-(.*)S(.*)$ ]]; then
         pacman_S=set
+        args+=("$i")
+    elif [[ "$i" =~ ^-F(.*)s(.*)$ ]]; then
+        empty_var_exit "Search term not specified" "$j"
+        search_term=$j
+        search=true
+        pacman_F=set
+        args+=("$i")
+    elif [[ "$i" =~ ^-(.*)F(.*)$ ]]; then
+        pacman_F=set
         args+=("$i")
     else
         args+=("$i")
@@ -195,13 +188,14 @@ done
 
 search_results=
 if $search; then
-    search_results=$(pacman -Ss "$search_term")
-    if [[ "$pacman_S" != set ]]; then
+    if [[ "$pacman_F" != set ]]; then
+        search_results=$(pacman -Ss "$search_term")
+    fi
+    if [[ "$pacman_S" != set ]] && [[ "$pacman_F" != set ]]; then
         search_results="$(pacaur -s "$search_term")"$'\n'"$search_results"
     fi
-    if $searchx; then
-        sudo pkgfile -u
-        search_results="$(pkgfile "$search_term")"$'\n'"$search_results"
+    if [[ "$pacman_F" = set ]]; then
+        search_results="$(pacaur "${args[@]}")"$'\n'"$search_results"
     fi
 fi
 
