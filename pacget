@@ -166,22 +166,22 @@ do
         empty_var_exit "Search term not specified" "$j"
         search_term=$j
         search=true
-        pacman_S=set
+        pacman_S='set'
         args+=("$i")
     elif [[ "$i" =~ ^-(.*)S(.*)$ ]]; then
-        pacman_S=set
+        pacman_S='set'
         args+=("$i")
     elif [[ "$i" =~ ^-F(.*)s(.*)$ ]]; then
         empty_var_exit "Search term not specified" "$j"
         search_term=$j
         search=true
-        pacman_F=set
+        pacman_F='set'
         args+=("$i")
     elif [[ "$i" =~ ^-(.*)F(.*)$ ]]; then
-        pacman_F=set
+        pacman_F='set'
         args+=("$i")
     elif [[ "$i" = -a ]] || [[ "$i" = --aur ]]; then
-        aur_only=set
+        aur_only='set'
         args+=("$i")
     else
         args+=("$i")
@@ -189,7 +189,7 @@ do
     shift
 done
 
-if [[ "$pacman_S" = set ]] || [[ "$paman_F" = set ]]; then
+if [[ "$pacman_S" = set ]]; then
     args+=(--repo)
 fi
 
@@ -229,7 +229,7 @@ $bldylw==>$txtrst "
         read inp
         declare -a arr
         packs=
-        arr=($(echo "$inp" |tr ',' '\n'))
+        arr=($(echo "$inp" |tr ',' '\n')) # word splitting is important here, it strips out the white spaces without further processing.
 
         for p in "${arr[@]}"; do
             if [[ "$p" =~ ^[0-9]+$ ]]; then
@@ -258,7 +258,7 @@ else
     # see if any options are passed
     for p in "${args[@]}"; do
         if [[ "$p" =~ ^-(.*)$ ]]; then
-            option_passed=set
+            option_passed='set'
             break
         fi
     done
