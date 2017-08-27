@@ -1,6 +1,12 @@
 Change Log for pacget
 --------------------
 
+Version 1.0.5 - Sun Aug 27 13:41:23 UTC 2017
+--------------------------------------------
+
+* Remove pkgfile dependency
+* Wrap `pacman -Fs` to provide yaourt like feature.
+
 
 Version 1.0.4 - Tue Aug 22 01:16:36 UTC 2017
 --------------------------------------------
