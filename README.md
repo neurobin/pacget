@@ -21,7 +21,6 @@ All arguments are forwarded to **pacaur** excluding some special ones which are 
 It depends on the following packages:
 
 1. pacaur
-2. pkgfile (optional)
 
 # INSTALL
 

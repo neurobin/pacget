@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Md. Jahidul Hamid https://github.com/neurobin" />
-  <meta name="date" content="2017-08-22" />
+  <meta name="date" content="2017-08-27" />
   <title>pacget(8) pacget user manual</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -50,7 +50,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">pacget(8) pacget user manual</h1>
 <h2 class="author">Md. Jahidul Hamid <a href="https://github.com/neurobin" class="uri">https://github.com/neurobin</a></h2>
-<h3 class="date">August 22, 2017</h3>
+<h3 class="date">August 27, 2017</h3>
 </div>
 <h1 id="name">NAME</h1>
 <p><strong>pacget</strong> -- A wrapper around <strong>pacaur</strong> to mimic yaourt's search feature.</p>
@@ -61,12 +61,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1 id="description">DESCRIPTION</h1>
 <p><strong>pacget</strong> works the same way as <strong>pacaur</strong> and consequently <strong>pacman</strong>. All basic operations are processed with <strong>pacaur</strong> which wraps around <strong>pacman</strong> and thus you can use the same knowledge of <strong>pacman</strong> and <strong>pacaur</strong>.</p>
 <p><strong>pacget</strong> extends some operations provided by pacaur, such as the search functionality. <strong>pacget</strong>'s <code>-s</code> operation searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like <a href="https://github.com/archlinuxfr/yaourt">yaourt</a>).</p>
-<h1 id="dependencies">DEPENDENCIES</h1>
-<p>It depends on the following packages:</p>
-<ol style="list-style-type: decimal">
-<li>pacaur</li>
-<li>pkgfile (optional)</li>
-</ol>
 <h1 id="usage">USAGE</h1>
 <p>It can be used the same way as <code>pacaur</code> (consequently <code>pacman</code>). The only difference is that some options come with extra facilities.</p>
 <p><strong>Examples:</strong></p>
@@ -96,14 +90,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dt><strong>-s, --search</strong> <em>search_term</em></dt>
 <dd>Search for <em>search_term</em> in both official Archlinux repositories and AUR, then install packages selectively and interactively. This produces output like <strong>yaourt</strong> with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 </dd>
-<dt><strong>-sx, --searchx</strong> <em>search_term</em></dt>
-<dd>Extended search. Same as <code>-s</code>, but includes <code>pkgfile</code> search. The package <code>pkgfile</code> must be installed.
-</dd>
 <dt><strong>-Ss, -S --search</strong> <em>search_term</em></dt>
 <dd>Search for <em>search_term</em> in official archlinux repositories only and allow installing packages selectively. This produces output like <strong>yaourt</strong> with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 </dd>
-<dt><strong>-Ssx, -S --searchx</strong> <em>search_term</em></dt>
-<dd>Extended search on official archlinux repositories only. Same as <code>-Ss</code>, but includes <code>pkgfile</code> search. The package <code>pkgfile</code> must be installed.
+<dt><strong>Fs, -F --search</strong> <em>file_name</em></dt>
+<dd>Search for packages containing file by the name <em>file_name</em> in the official repo. <code>pacget -Fy</code> must be run at least once to use this search functionality. This produces output like <strong>yaourt</strong> with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 </dd>
 <dt><strong>-h, --help</strong></dt>
 <dd>Show help for <strong>pacget</strong> and <strong>pacaur</strong>

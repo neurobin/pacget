@@ -1,6 +1,6 @@
 % pacget(8) pacget user manual
 % Md. Jahidul Hamid <https://github.com/neurobin>
-% August 22, 2017
+% August 27, 2017
 
 # NAME
 
@@ -19,13 +19,6 @@ All arguments are forwarded to **pacaur** excluding some special ones which are 
 **pacget** works the same way as **pacaur** and consequently **pacman**. All basic operations are processed with **pacaur** which wraps around **pacman** and thus you can use the same knowledge of **pacman** and **pacaur**.
 
 **pacget** extends some operations provided by pacaur, such as the search functionality. **pacget**'s `-s` operation searches both the official repo and AUR for the given search term and allows installing packages interactively (kinda like [yaourt](https://github.com/archlinuxfr/yaourt)).
-
-# DEPENDENCIES
-
-It depends on the following packages:
-
-1. pacaur
-2. pkgfile (optional)
 
 # USAGE
 
@@ -61,14 +54,11 @@ pacget -Ss gimp
 **-s, --search** *search_term*
 : Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 
-**-sx, --searchx** *search_term*
-: Extended search. Same as `-s`, but includes `pkgfile` search. The package `pkgfile` must be installed.
-
 **-Ss, -S --search** *search_term*
 : Search for *search_term* in official archlinux repositories only and allow installing packages selectively. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 
-**-Ssx, -S --searchx** *search_term*
-: Extended search on official archlinux repositories only. Same as `-Ss`, but includes `pkgfile` search. The package `pkgfile` must be installed.
+**Fs, -F --search** *file_name*
+: Search for packages containing file by the name *file_name* in the official repo. `pacget -Fy` must be run at least once to use this search functionality. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 
 **-h, --help**
 : Show help for **pacget** and **pacaur**
