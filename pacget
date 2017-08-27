@@ -66,9 +66,9 @@ Usage:
 
 All options works the same way as pacaur except the following:
 
-  -s, --search <sterm>    : Search arch repo and AUR and interactive install
-  -Ss, -S --search <sterm>: Search only arch repo and interactive install
-  -Fs, -F --search <file> : Search for containing file and interactive install
+  -s <search_term>  : Search arch repo and AUR and do interactive install
+  -Ss <search_term> : Search only arch repo and do interactive install
+  -Fs <file_name>   : Search for containing file and do interactive install
 
 
 All other options are forwarded to pacaur.
@@ -180,23 +180,25 @@ do
     elif [[ "$i" =~ ^-(.*)F(.*)$ ]]; then
         pacman_F=set
         args+=("$i")
+    elif [[ "$i" = -a ]] || [[ "$i" = --aur ]]; then
+        aur_only=set
+        args+=("$i")
     else
         args+=("$i")
     fi
     shift
 done
 
+if [[ "$pacman_S" = set ]] || [[ "$paman_F" = set ]]; then
+    args+=(--repo)
+fi
+
 search_results=
 if $search; then
-    if [[ "$pacman_F" != set ]]; then
+    if [[ "$pacman_S" != set ]] && [[ "$pacman_F" != set ]] && [[ "$aur_only" != set ]]; then
         search_results=$(pacman -Ss "$search_term")
     fi
-    if [[ "$pacman_S" != set ]] && [[ "$pacman_F" != set ]]; then
-        search_results="$(pacaur -s "$search_term")"$'\n'"$search_results"
-    fi
-    if [[ "$pacman_F" = set ]]; then
-        search_results="$(pacaur "${args[@]}")"$'\n'"$search_results"
-    fi
+    search_results="$(pacaur "${args[@]}")"$'\n'"$search_results"
 fi
 
 if $search; then
