@@ -1,6 +1,12 @@
 Change Log for pacget
 --------------------
 
+Version 1.0.6 - Fri Sep  1 19:37:52 UTC 2017
+--------------------------------------------
+
+* Display numbers in descending order (Fix issue #1)
+
+
 Version 1.0.5 - Sun Aug 27 13:41:23 UTC 2017
 --------------------------------------------
 
