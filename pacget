@@ -34,7 +34,7 @@
 #     POSSIBILITY OF SUCH DAMAGE.
 # ##############################################################################
 
-version=1.0.6
+version=1.0.7
 pkgname=pacget
 
 
@@ -198,12 +198,11 @@ if $search; then
     if [[ "$pacman_S" != set ]] && [[ "$pacman_F" != set ]] && [[ "$aur_only" != set ]]; then
         search_results=$(pacman -Ss "$search_term")
     fi
-    search_results="$(pacaur "${args[@]}")"$'\n'"$search_results"
+    search_results+=$'\n'"$(pacaur "${args[@]}")"
 fi
 
 if $search; then
-    mcount=$(echo "$search_results" |grep -c -E '^[a-zA-Z]+/')
-    raw_indexed_search_results=$(echo "$search_results" | awk -v c=$mcount 'BEGIN {a=c} /^[a-zA-Z]+\// {print "\n" a,$0; a--; next;} {print $0;}')
+    raw_indexed_search_results=$(echo "$search_results" | awk 'BEGIN {a=0} /^[a-zA-Z]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr '\0' '\n')
     #echo "$raw_indexed_search_results"
 
     search_results=$(

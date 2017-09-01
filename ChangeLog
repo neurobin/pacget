@@ -1,6 +1,11 @@
 Change Log for pacget
 --------------------
 
+Version 1.0.7 - Fri Sep  1 20:39:33 UTC 2017
+--------------------------------------------
+
+* Fix numbering to be consistent with priority sort
+
 Version 1.0.6 - Fri Sep  1 19:37:52 UTC 2017
 --------------------------------------------
 

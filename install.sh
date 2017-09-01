@@ -31,7 +31,7 @@ chknorm
 
 tmpdir=$(mktemp -d)
 trap "clean '$tmpdir'" EXIT 2
-cd "$tmpdir"
+cd "$tmpdir" && echo "Entered into $tmpdir"
 
 if ! chkcmd sudo; then
     err_exit "Please install and setup 'sudo' for your user."
