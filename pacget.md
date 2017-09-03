@@ -1,6 +1,6 @@
 % pacget(8) pacget user manual
 % Md. Jahidul Hamid <https://github.com/neurobin>
-% August 27, 2017
+% September 03, 2017
 
 # NAME
 
@@ -65,6 +65,10 @@ pacget -Ss gimp
 
 **-v, --version**
 : Show version info for **pacget**, **pacaur** and **pacman**
+
+# SEE ALSO
+
+See `pacaur(8)` (`man pacaur` ) for more details on pacaur options.
 
 # BUG REPORT
 
