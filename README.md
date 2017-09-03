@@ -49,14 +49,17 @@ pacget -S linux-lts
 # The following is a short form to pacget -S linux-lts
 pacget linux-lts
 
+# The following will search only arch official repo
+# and give you option to select packages to install
+pacget -r -Ss gimp
+
+# The following will search only arch user repo aur
+# and give you option to select packages to install
+pacget -a -Ss gimp
 
 # The following will search for gimp in both official repo and AUR
 # and give you option to select packages to install
 pacget -s gimp
-
-# The following will search only arch official repo
-# and give you option to select packages to install
-pacget -Ss gimp
 ```
 
 ![pacget example image](https://neurobin.org/img/pacget-ex.png)

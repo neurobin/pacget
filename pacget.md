@@ -36,14 +36,17 @@ pacget -S linux-lts
 # The following is a short form to pacget -S linux-lts
 pacget linux-lts
 
+# The following will search only arch official repo
+# and give you option to select packages to install
+pacget -r -Ss gimp
+
+# The following will search only arch user repo aur
+# and give you option to select packages to install
+pacget -a -Ss gimp
 
 # The following will search for gimp in both official repo and AUR
 # and give you option to select packages to install
 pacget -s gimp
-
-# The following will search only arch official repo
-# and give you option to select packages to install
-pacget -Ss gimp
 ```
 
 ![pacget example image](https://neurobin.org/img/pacget-ex.png)
@@ -55,7 +58,7 @@ pacget -Ss gimp
 : Search for *search_term* in both official Archlinux repositories and AUR, then install packages selectively and interactively. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
 
 **-Ss, -S --search** *search_term*
-: Search for *search_term* in official archlinux repositories only and allow installing packages selectively. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
+: Same as `-s` option.
 
 **Fs, -F --search** *file_name*
 : Search for packages containing file by the name *file_name* in the official repo. `pacget -Fy` must be run at least once to use this search functionality. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.

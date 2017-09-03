@@ -34,7 +34,7 @@
 #     POSSIBILITY OF SUCH DAMAGE.
 # ##############################################################################
 
-version=1.0.8
+version=1.1.0
 pkgname=pacget
 
 
@@ -64,10 +64,10 @@ Usage:
     $pkgname [operation] [options] [target/s]       #1
     $pkgname [packages_to_install]                  #2
 
-All options works the same way as pacaur except the following:
+All options work the same way as pacaur except the following:
 
   -s <search_term>  : Search arch repo and AUR and do interactive install
-  -Ss <search_term> : Search only arch repo and do interactive install
+  -Ss <search_term> : Search arch repo and AUR and do interactive install
   -Fs <file_name>   : Search for containing file and do interactive install
 
 
@@ -188,10 +188,6 @@ do
     fi
     shift
 done
-
-if [[ "$pacman_S" = set ]]; then
-    args+=(--repo)
-fi
 
 search_results=
 if $search; then
