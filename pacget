@@ -77,7 +77,7 @@ All other options are forwarded to pacaur.
 "
 
 msg_out(){
-	printf "%b\n" "*** $*\n" #> /dev/stdout
+	printf "%b\n" "*** $*" #> /dev/stdout
 }
 
 _star_s(){
@@ -87,20 +87,20 @@ _star_s(){
         title=" ($1) "
     fi
     local s="************************$title*****************************"
-    printf "%b\n" "\n\n\n*** $s\n"
+    printf "\n\n\n%b\n" "*** $s"
 }
 
 _star_e(){
     local s='***************************************************************'
-    printf "%b\n" "*** $s\n"
+    printf "%b\n" "*** $s"
 }
 
 err_out(){
-	printf "%b\n" "\nE: $*\n" >&2
+	printf "%b\n" "\nE: $*" >&2
 }
 
 wrn_out(){
-	printf "%b\n" "\nW: $*\n" >&2
+	printf "%b\n" "\nW: $*" >&2
 }
 
 err_exit(){
