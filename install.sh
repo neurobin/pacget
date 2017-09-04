@@ -43,7 +43,7 @@ if ! chkcmd pacaur; then
     cd pacaur
 
     # Install dependencies
-    sudo pacman -Sy base-devel expac yajl git  --noconfirm || err_exit "Failed to install dependency"
+    sudo pacman -S base-devel expac yajl git  --noconfirm || err_exit "Failed to install dependency"
 
     # Install "cower" from AUR
     PATH=$PATH:/usr/bin/core_perl
