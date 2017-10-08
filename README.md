@@ -28,7 +28,7 @@ Run the *install.sh* script:
 
 ```bash
 # download the installer
-wget https://raw.githubusercontent.com/neurobin/pacget/release/install.sh -O install.sh
+curl -O https://raw.githubusercontent.com/neurobin/pacget/release/install.sh
 chmod +x install.sh # Give execute permission
 ./install.sh        # Run the installer
 ```
