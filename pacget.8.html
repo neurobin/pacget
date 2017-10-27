@@ -96,8 +96,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dt><strong>-Ss, -S --search</strong> <em>search_term</em></dt>
 <dd>Same as <code>-s</code> option.
 </dd>
-<dt><strong>Fs, -F --search</strong> <em>file_name</em></dt>
+<dt><strong>-Fs, -F --search</strong> <em>file_name</em></dt>
 <dd>Search for packages containing file by the name <em>file_name</em> in the official repo. <code>pacget -Fy</code> must be run at least once to use this search functionality. This produces output like <strong>yaourt</strong> with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
+</dd>
+<dt><strong>-cs</strong> <em>search_term</em></dt>
+<dd>Same as <code>-s</code>, with compact output (no newlines after each package entry)
+</dd>
+<dt><strong>-c, --compact</strong></dt>
+<dd>Turn on compact mode.
 </dd>
 <dt><strong>-h, --help</strong></dt>
 <dd>Show help for <strong>pacget</strong> and <strong>pacaur</strong>

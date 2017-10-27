@@ -60,8 +60,14 @@ pacget -s gimp
 **-Ss, -S --search** *search_term*
 : Same as `-s` option.
 
-**Fs, -F --search** *file_name*
+**-Fs, -F --search** *file_name*
 : Search for packages containing file by the name *file_name* in the official repo. `pacget -Fy` must be run at least once to use this search functionality. This produces output like **yaourt** with indexed package list and lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and index range (1-3 or 3-1) to install them.
+
+**-cs** *search_term*
+: Same as `-s`, with compact output (no newlines after each package entry)
+
+**-c, --compact**
+: Turn on compact mode.
 
 **-h, --help**
 : Show help for **pacget** and **pacaur**

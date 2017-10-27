@@ -79,7 +79,7 @@ Same as \f[C]\-s\f[] option.
 .RS
 .RE
 .TP
-.B \f[B]Fs, \-F \-\-search\f[] \f[I]file_name\f[]
+.B \f[B]\-Fs, \-F \-\-search\f[] \f[I]file_name\f[]
 Search for packages containing file by the name \f[I]file_name\f[] in
 the official repo.
 \f[C]pacget\ \-Fy\f[] must be run at least once to use this search
@@ -87,6 +87,17 @@ functionality.
 This produces output like \f[B]yaourt\f[] with indexed package list and
 lets you select the packages by index number (e.g 1,2,3 or 1 2 3) and
 index range (1\-3 or 3\-1) to install them.
+.RS
+.RE
+.TP
+.B \f[B]\-cs\f[] \f[I]search_term\f[]
+Same as \f[C]\-s\f[], with compact output (no newlines after each
+package entry)
+.RS
+.RE
+.TP
+.B \f[B]\-c, \-\-compact\f[]
+Turn on compact mode.
 .RS
 .RE
 .TP

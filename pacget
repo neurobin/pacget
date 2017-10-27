@@ -34,7 +34,7 @@
 #     POSSIBILITY OF SUCH DAMAGE.
 # ##############################################################################
 
-version=1.1.0
+version=1.1.1
 pkgname=pacget
 
 
@@ -69,6 +69,7 @@ All options work the same way as pacaur except the following:
   -s <search_term>  : Search arch repo and AUR and do interactive install
   -Ss <search_term> : Search arch repo and AUR and do interactive install
   -Fs <file_name>   : Search for containing file and do interactive install
+  -cs <search_term> : Same as -s with compact output
 
 
 All other options are forwarded to pacaur.
@@ -143,6 +144,7 @@ declare -a args
 
 search=false
 search_term=
+compact_mode=false
 while [ $# -gt 0 ]
 do
     i=$1
@@ -168,7 +170,7 @@ do
         search=true
         pacman_S='set'
         args+=("$i")
-    elif [[ "$i" =~ ^-(.*)S(.*)$ ]]; then
+    elif [[ "$i" =~ ^-([^-]*)S(.*)$ ]]; then
         pacman_S='set'
         args+=("$i")
     elif [[ "$i" =~ ^-F(.*)s(.*)$ ]]; then
@@ -177,12 +179,21 @@ do
         search=true
         pacman_F='set'
         args+=("$i")
-    elif [[ "$i" =~ ^-(.*)F(.*)$ ]]; then
+    elif [[ "$i" =~ ^-([^-]*)F(.*)$ ]]; then
         pacman_F='set'
         args+=("$i")
     elif [[ "$i" = -a ]] || [[ "$i" = --aur ]]; then
         aur_only='set'
         args+=("$i")
+    elif [[ "$i" = -c ]] || [[ "$i" = --compact ]]; then
+        compact_mode=true
+    elif [[ "$i" = -cs ]]; then
+        compact_mode=true
+        empty_var_exit "Search term not specified" "$j"
+        search_term=$2
+        search=true
+        args+=(-s "$j")
+        shift
     else
         args+=("$i")
     fi
@@ -198,8 +209,11 @@ if $search; then
 fi
 
 if $search; then
-    raw_indexed_search_results=$(echo "$search_results" | awk 'BEGIN {a=0} /^[a-zA-Z]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr '\0' '\n')
-    #echo "$raw_indexed_search_results"
+    if ! $compact_mode; then
+        raw_indexed_search_results=$(echo "$search_results"$'\n' | awk 'BEGIN {a=0} /^[a-zA-Z]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr '\0' '\n')
+    else
+        raw_indexed_search_results=$(echo "$search_results" | awk 'BEGIN {a=0} /^[a-zA-Z]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr -s '\0' '\n')
+    fi
 
     search_results=$(
         echo "$raw_indexed_search_results" |
