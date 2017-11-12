@@ -1,6 +1,13 @@
 Change Log for pacget
 --------------------
 
+
+Version 1.1.2 - Sun Nov 12 14:28:53 UTC 2017
+--------------------------------------------
+
+* Allow general category options with `-s` (resolve issue #4 and #5)
+* Fix for unofficial repo search
+
 Version 1.1.1 - Fri Oct 27 15:52:38 UTC 2017
 --------------------------------------------
 

@@ -34,7 +34,7 @@
 #     POSSIBILITY OF SUCH DAMAGE.
 # ##############################################################################
 
-version=1.1.1
+version=1.1.2
 pkgname=pacget
 
 
@@ -141,10 +141,12 @@ chkcmd(){
 
 
 declare -a args
+declare -a pargs
 
 search=false
 search_term=
 compact_mode=false
+PARGS=' --noconfirm --noedit -e --edit -q --quiet --devel --foreign --ignore --needed --rebuild --silent ' # must start and end with a space
 while [ $# -gt 0 ]
 do
     i=$1
@@ -194,6 +196,8 @@ do
         search=true
         args+=(-s "$j")
         shift
+    elif [[ "$PARGS" = *"$i"* ]]; then
+        pargs+=("$i")
     else
         args+=("$i")
     fi
@@ -210,9 +214,9 @@ fi
 
 if $search; then
     if ! $compact_mode; then
-        raw_indexed_search_results=$(echo "$search_results"$'\n' | awk 'BEGIN {a=0} /^[a-zA-Z]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr '\0' '\n')
+        raw_indexed_search_results=$(echo "$search_results"$'\n' | awk 'BEGIN {a=0} /^[a-zA-Z0-9_.-]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr '\0' '\n')
     else
-        raw_indexed_search_results=$(echo "$search_results" | awk 'BEGIN {a=0} /^[a-zA-Z]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr -s '\0' '\n')
+        raw_indexed_search_results=$(echo "$search_results" | awk 'BEGIN {a=0} /^[a-zA-Z0-9_.-]+\// {a++; print "\n" a,$0; next;} {print $0;}' |sed -zr 's/\n([^0-9])/\x0\1/g' |sort -n -r | tr -s '\0' '\n')
     fi
 
     search_results=$(
@@ -229,8 +233,12 @@ if $search; then
     printf "%b\n" "$search_results"
 
     if [[ "$search_results" != '' ]]; then
-        msg="\n
-$bldylw==>$txtrst ${bldwht}Enter n° of packages to be installed$txtrst
+        if $compact_mode; then
+            msg=
+        else
+            msg=$'\n'$'\n'
+        fi
+        msg+="$bldylw==>$txtrst ${bldwht}Enter n° of packages to be installed$txtrst
 $bldylw==>$txtrst ${bldwht}(e.g., 1 2 3 or 1,2,3 or 1-3 or 3-1)$txtrst
 $bldylw==>$txtrst ${bldwht}------------------------------------$txtrst
 $bldylw==>$txtrst "
@@ -264,7 +272,7 @@ $bldylw==>$txtrst "
             packs+=" $(echo "$raw_indexed_search_results" | sed -r -n -e "s#^(${packns#|})[[:blank:]]+[^/]+/([^[:blank:]]+).*#\2#p")"
         fi
         if [[ "$packs" != '' ]]; then
-            pacaur -S $packs
+            pacaur "${pargs[@]}" -S $packs
         fi
     fi
 else
@@ -276,9 +284,9 @@ else
         fi
     done
     if [[ "$option_passed" = set ]]; then
-        pacaur "${args[@]}"
+        pacaur "${pargs[@]}" "${args[@]}"
     else
         # If no option is passed, all will be taken as package names
-        pacaur -S "${args[@]}"
+        pacaur "${pargs[@]}" -S "${args[@]}"
     fi
 fi
